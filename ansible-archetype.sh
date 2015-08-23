@@ -19,7 +19,7 @@ cat > ${NAME_OF_PROJECT}/${NAME_OF_PROJECT}.yml <<EOF
 ---
 # file: ${NAME_OF_PROJECT}.yml
 
-- hosts: ${NAME_OF_PROJECT}
+- hosts: all
   roles:
     - ${NAME_OF_PROJECT}
 EOF
@@ -50,5 +50,14 @@ Vagrant.configure(2) do |config|
   config.vm.box="jk563/fedora21"
   config.vm.box_url="https://atlas.hashicorp.com/jk563/boxes/fedora21.json"
 
+  config.vm.provision "ansible" do |ansible|
+      ansible.playbook = "${NAME_OF_PROJECT}.yml"
+  end
 end
+EOF
+
+# Ansible config
+cat > ${NAME_OF_PROJECT}/ansible.cfg <<EOF
+[defaults]
+roles_path = ..
 EOF
