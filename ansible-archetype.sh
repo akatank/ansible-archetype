@@ -24,26 +24,24 @@ cat > ${NAME_OF_PROJECT}/${NAME_OF_PROJECT}.yml <<EOF
     - ${NAME_OF_PROJECT}
 EOF
 
-mkdir ${NAME_OF_PROJECT}/roles
-mkdir ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}
-mkdir ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/tasks
-cat > ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/tasks/main.yml <<EOF
+mkdir ${NAME_OF_PROJECT}/tasks
+cat > ${NAME_OF_PROJECT}/tasks/main.yml <<EOF
 ---
-# file: ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/tasks/main.yml
+# file: tasks/main.yml
 
 
 EOF
 
-mkdir ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/meta
-cat > ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/meta/main.yml <<EOF
+mkdir ${NAME_OF_PROJECT}/meta
+cat > ${NAME_OF_PROJECT}/meta/main.yml <<EOF
 ---
-# file: ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/meta/main.yml
+# file: meta/main.yml
 
 
 EOF
 
-mkdir ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/files
-mkdir ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/templates
+mkdir ${NAME_OF_PROJECT}/files
+mkdir ${NAME_OF_PROJECT}/templates
 
 # Vagrantfile
 cat > ${NAME_OF_PROJECT}/Vagrantfile <<EOF
