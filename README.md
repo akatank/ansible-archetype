@@ -23,4 +23,4 @@ The Vagrantfile generated uses a Fedora 21 server fresh install box ([jk563/fedo
 #### But why that structure?
 This structure allows each role to be under its own source control. Each role can be developed separately and composed as needed to create larger roles or environments. This also allows each role to be built as an image using packer.
 
-[1] For more details on the box see [akatank/packer_fedora_21_vagrant](https://github.com/akatank/packer_fedora_21_vagrant)
+[1] For more details on the box see [jk563/packer_fedora_21_vagrant](https://github.com/jk563/packer_fedora_21_vagrant)
