@@ -14,6 +14,10 @@ Uses the following structure:
       - tasks/
         - main.yml
       - templates/
+      ansible.cfg
+      project_name.yml
       Vagrantfile
 
-The Vagrantfile generated uses a Fedora 21 server fresh install box (jk563/fedora21). For more details on the box see [akatank/packer_fedora_21_vagrant](https://github.com/akatank/packer_fedora_21_vagrant)
+The Vagrantfile generated uses a Fedora 21 server fresh install box ([jk563/fedora21](https://atlas.hashicorp.com/jk563/boxes/fedora21.json))[1]. After bringing up the box, Vagrant will then provision the box with project directory acting as the role. 
+
+[1] For more details on the box see [akatank/packer_fedora_21_vagrant](https://github.com/akatank/packer_fedora_21_vagrant)
