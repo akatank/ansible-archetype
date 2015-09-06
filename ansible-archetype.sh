@@ -29,7 +29,6 @@ cat > ${NAME_OF_PROJECT}/tasks/main.yml <<EOF
 ---
 # file: tasks/main.yml
 
-
 EOF
 
 mkdir ${NAME_OF_PROJECT}/meta
@@ -37,11 +36,11 @@ cat > ${NAME_OF_PROJECT}/meta/main.yml <<EOF
 ---
 # file: meta/main.yml
 
-
 EOF
 
 mkdir ${NAME_OF_PROJECT}/files
 mkdir ${NAME_OF_PROJECT}/templates
+mkdir ${NAME_OF_PROJECT}/vars
 
 # Vagrantfile
 cat > ${NAME_OF_PROJECT}/Vagrantfile <<EOF
