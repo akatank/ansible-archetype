@@ -57,9 +57,8 @@ Vagrant.configure(2) do |config|
 
 end
 EOF
-#
-# # Ansible config
-# cat > ${NAME_OF_PROJECT}/ansible.cfg <<EOF
-# [defaults]
-# roles_path = ..
-# EOF
+
+# Packer file
+cat > ${NAME_OF_PROJECT}/packer.json <<EOF
+
+EOF
