@@ -17,9 +17,13 @@ fi
 mkdir -p ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}
 cat > ${NAME_OF_PROJECT}/${NAME_OF_PROJECT}.yml <<EOF
 ---
-# file: ${NAME_OF_PROJECT}.yml
+# file: roles/${NAME_OF_PROJECT}/${NAME_OF_PROJECT}.yml
 
 - hosts: ${NAME_OF_PROJECT}
+  roles:
+    - ${NAME_OF_PROJECT}
+
+- hosts: default
   roles:
     - ${NAME_OF_PROJECT}
 EOF
@@ -27,20 +31,19 @@ EOF
 mkdir ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/tasks
 cat > ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/tasks/main.yml <<EOF
 ---
-# file: tasks/main.yml
+# file: roles/${NAME_OF_PROJECT}/tasks/main.yml
 
 EOF
 
 mkdir ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/meta
-cat > ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/meta/main.yml <<EOF
----
-# file: meta/main.yml
-
-EOF
-
 mkdir ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/files
 mkdir ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/templates
 mkdir ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/vars
+cat > ${NAME_OF_PROJECT}/roles/${NAME_OF_PROJECT}/vars/main.yml <<EOF
+---
+# file: roles/${NAME_OF_PROJECT}/vars/main.yml
+
+EOF
 
 # Vagrantfile
 cat > ${NAME_OF_PROJECT}/Vagrantfile <<EOF
@@ -60,5 +63,36 @@ EOF
 
 # Packer file
 cat > ${NAME_OF_PROJECT}/packer.json <<EOF
-
+{
+  "variables": {
+    "fedora21_fresh_install_ovf": "/Users/jamiekelly/packer_fedora_21_vagrant/output-fedora21_fresh_vagrant/packer-fedora21_fresh_vagrant-1445278811.ovf"
+  },
+  "builders": [
+    {
+      "name": "fedora21_${NAME_OF_PROJECT}",
+      "type": "virtualbox-ovf",
+      "source_path": "{{user \`fedora21_fresh_install_ovf\`}}",
+      "ssh_username": "root",
+      "ssh_password": "root",
+      "headless": "true",
+      "shutdown_command": "echo 'packer' | sudo -S shutdown -P now"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "./${NAME_OF_PROJECT}.yml",
+      "extra_arguments": ["--private-key", "/Users/jamiekelly/ansib"],
+      "ssh_authorized_key_file": "/Users/jamiekelly/ansib.pub",
+      "ssh_host_key_file": "/Users/jamiekelly/ansib",
+      "sftp_command": "/usr/libexec/openssh/sftp-server -e"
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "builds/packer_{{.BuildName}}_{{.Provider}}.box"
+    }
+  ]
+}
 EOF
